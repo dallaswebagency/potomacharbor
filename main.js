@@ -136,3 +136,20 @@ if(he){
   all.forEach(e=>{if(!show.includes(e))e.remove()});
   show.forEach((e,i)=>{he.appendChild(e);e.style.setProperty('--d',(i*140)+'ms')});
 }
+
+// Home hero video: pick size by screen, respect reduced motion, pause toggle
+const hv=document.querySelector('.hv-video');
+if(hv){
+  const sec=hv.closest('.hero-video'),btn=sec.querySelector('.hv-toggle');
+  if(reduce){sec.classList.add('paused');btn.setAttribute('aria-label','Play background video')}
+  else{hv.src=innerWidth<768?hv.dataset.srcMobile:hv.dataset.srcDesktop;hv.play().catch(()=>{})}
+  btn.addEventListener('click',()=>{
+    if(!hv.src)hv.src=innerWidth<768?hv.dataset.srcMobile:hv.dataset.srcDesktop;
+    if(hv.paused){hv.play();sec.classList.remove('paused');btn.setAttribute('aria-label','Pause background video')}
+    else{hv.pause();sec.classList.add('paused');btn.setAttribute('aria-label','Play background video')}
+  });
+  new IntersectionObserver(([e])=>{if(sec.classList.contains('paused'))return;e.isIntersecting?hv.play().catch(()=>{}):hv.pause()}).observe(sec);
+}
+
+// Back to top
+document.querySelector('.to-top')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
