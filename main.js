@@ -84,7 +84,9 @@ document.querySelectorAll('.offer-grid,.team-grid,.findings,.fourS,.post-grid,.b
   [...g.querySelectorAll(':scope>.reveal')].forEach((el,i)=>{if(!el.style.getPropertyValue('--d'))el.style.setProperty('--d',(i*110)+'ms')});
 });
 document.querySelectorAll('.fourS').forEach(f=>io.observe(f));
-document.querySelectorAll('.img-wipe').forEach(el=>io.observe(el));
+// Clip-path hides the element from IntersectionObserver, so watch its parent instead
+const wio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll(':scope>.img-wipe').forEach(w=>w.classList.add('in'));wio.unobserve(e.target)}}),{threshold:.15});
+new Set([...document.querySelectorAll('.img-wipe')].map(el=>el.parentElement)).forEach(p=>wio.observe(p));
 
 // Count-up numbers
 const cio=new IntersectionObserver(es=>es.forEach(e=>{
