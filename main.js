@@ -39,7 +39,7 @@ document.querySelectorAll('form.form').forEach(f=>{
     const d=new FormData(f);
     const name=`${d.get('first')||''} ${d.get('last')||''}`.trim();
     const body=`Name: ${name}\nTitle: ${d.get('title')||''}\nEmail: ${d.get('email')||''}\n\n${d.get('message')||''}`;
-    window.location.href=`mailto:Info@potomacharbor.com?subject=${encodeURIComponent('Inquiry from '+name)}&body=${encodeURIComponent(body)}`;
+    window.location.href=`mailto:Info@potomacharbor.com?subject=${encodeURIComponent((f.classList.contains('is-demo')?'Book a demo: ':'Inquiry from ')+name)}&body=${encodeURIComponent(body)}`;
     f.classList.add('sent');
   });
 });
@@ -155,3 +155,12 @@ if(hv){
 
 // Back to top
 document.querySelector('.to-top')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+
+// Book a Demo: prefill the inquiry form when arriving from a demo link
+if(new URLSearchParams(location.search).get('topic')==='demo'){
+  document.querySelectorAll('form.form').forEach(f=>{
+    f.classList.add('is-demo');
+    const b=document.createElement('p');b.className='demo-banner';b.textContent='Book a Demo';f.prepend(b);
+    const m=f.querySelector('[name=message]');if(m&&!m.value)m.value="I'd like to book a demo of PotomacHarbor.";
+  });
+}
