@@ -694,3 +694,11 @@ body:has(form.form) .foot-top{padding-top:80px}
 .hc-line{display:none}
 .approach::before{display:none}
 .approach{grid-template-columns:1fr}
+/* Contact photo (home + contact page) */
+.contact-photo{position:relative;flex:1;min-height:360px;margin-top:40px;overflow:hidden;clip-path:polygon(0 0,calc(100% - 34px) 0,100% 34px,100% 100%,0 100%)}
+.contact-photo.img-wipe:not(.in){clip-path:inset(0 100% 0 0)}
+.contact-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% center;transition:transform 1.2s}
+.contact-photo:hover img{transform:scale(1.05)}
+.contact-photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--grad)}
+.cp-page{flex:0 0 auto;height:340px;margin-top:20px}
+@media (max-width:900px){.contact-photo{min-height:280px}.cp-page{height:260px}}
