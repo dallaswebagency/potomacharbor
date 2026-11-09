@@ -724,3 +724,44 @@ img[data-logo].logo-ready{opacity:1}
 @media (max-width:1080px){.nav{gap:22px}}
 @media (max-width:900px){.demo-inner{grid-template-columns:1fr;gap:40px}.home-demo{padding:80px 0}}
 @media (prefers-reduced-motion:reduce){.home-demo::before,.home-demo::after{animation:none}}
+
+/* ===================== Mobile QA fixes ===================== */
+/* Light lead text on dark page heroes (was too faint) */
+.page-hero .lead{color:#CBD7E5}
+/* Home insights button should not stretch */
+.ins-head .btn{justify-self:start}
+/* Mobile menu backdrop + scroll lock */
+body.no-scroll::before{content:"";position:fixed;inset:0;background:rgba(10,22,40,.55);z-index:45}
+body.no-scroll{overflow:hidden}
+@media (max-width:900px){
+  .research-hero{min-height:440px}
+  .research-hero .wrap{padding-bottom:60px}
+  .events-hero{padding:80px 0}
+  .insights-hero{padding:90px 0 70px}
+  .offer{min-height:0;flex-direction:row;align-items:center;gap:18px;padding:22px 20px}
+  .offer h3{font-size:18px}
+  .offer .ic{flex:0 0 48px}
+  .home-research{padding:80px 0}
+}
+@media (max-width:640px){
+  /* Helping cards: keep the big number clear of the title */
+  .help-card{padding:24px 22px;align-items:flex-start;flex-direction:column;gap:16px}
+  .hc-num{font-size:46px;top:16px;right:18px}
+  .help-card h3{max-width:none;padding-right:0}
+  .hc-icon{width:60px;height:60px;flex:0 0 60px}.hc-icon svg{width:28px;height:28px}
+  .ins-watermark{display:none}
+  .h2-intro{text-align:left}
+  /* Larger tap areas for text links */
+  .link-arrow,.mail,.demo-mail,.contact-split .mail{padding-top:10px;padding-bottom:10px}
+  .foot-top ul a{padding:6px 0}
+  .foot-posts a{padding:4px 0}
+  .event h3 a{display:inline-block;padding:4px 0}
+  .brand{padding:10px 0}
+  .foot-cta-actions .btn{width:100%;justify-content:center}
+  .hero-video .hv-content .actions .btn{flex:1 1 auto;justify-content:center}
+  .demo-actions .btn{width:100%;justify-content:center}
+  .hr-stat{padding-left:24px}
+}
+.page-hero h1{color:#fff}
+.menu-open{background:#fff}
+@media (max-width:640px){.member-card .photo{aspect-ratio:1/1}}

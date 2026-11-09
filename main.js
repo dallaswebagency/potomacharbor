@@ -26,6 +26,7 @@ const header=document.querySelector('.site-header');
 document.querySelector('.menu-btn')?.addEventListener('click',()=>{
   const open=header.classList.toggle('menu-open');
   document.querySelector('.menu-btn').setAttribute('aria-expanded',open);
+  document.body.classList.toggle('no-scroll',open);
 });
 
 // Scroll reveal
@@ -164,3 +165,7 @@ if(new URLSearchParams(location.search).get('topic')==='demo'){
     const m=f.querySelector('[name=message]');if(m&&!m.value)m.value="I'd like to book a demo of PotomacHarbor.";
   });
 }
+
+// Close the mobile menu when a link is tapped or the screen widens
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{header.classList.remove('menu-open');document.body.classList.remove('no-scroll')}));
+addEventListener('resize',()=>{if(innerWidth>900&&header.classList.contains('menu-open')){header.classList.remove('menu-open');document.body.classList.remove('no-scroll')}});
