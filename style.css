@@ -682,3 +682,8 @@ body:has(form.form) .foot-top{padding-top:80px}
 .ins-feature-body{padding:36px 40px 40px;flex:1;border-top:4px solid;border-image:var(--grad) 1}
 .ins-feature:hover img{transform:scale(1.03)}
 .ins-feature{overflow:hidden}
+/* Side insight cards: show the full graphic (it contains its own title) */
+.ins-mini{grid-template-columns:46% 1fr;align-items:center;padding:16px;gap:6px}
+.ins-mini-img{min-height:0;aspect-ratio:16/9}
+.ins-mini-body{padding:12px 12px 12px 18px}
+@media (max-width:640px){.ins-mini{grid-template-columns:1fr}.ins-mini-img{min-height:0}}
