@@ -687,3 +687,10 @@ body:has(form.form) .foot-top{padding-top:80px}
 .ins-mini-img{min-height:0;aspect-ratio:16/9}
 .ins-mini-body{padding:12px 12px 12px 18px}
 @media (max-width:640px){.ins-mini{grid-template-columns:1fr}.ins-mini-img{min-height:0}}
+/* Remove dash-like decorative lines */
+.eyebrow::before{display:none}
+.eyebrow{gap:0}
+.help-cards::before{display:none}
+.hc-line{display:none}
+.approach::before{display:none}
+.approach{grid-template-columns:1fr}
