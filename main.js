@@ -1,3 +1,26 @@
+// Logo: turn the white background of the supplied PNG transparent and trim it
+(function(){
+  const imgs=[...document.querySelectorAll('img[data-logo]')];if(!imgs.length)return;
+  const KEY='ph-logo-v1';
+  const apply=url=>imgs.forEach(i=>{i.src=url;i.classList.add('logo-ready')});
+  const fallback=()=>imgs.forEach(i=>{i.removeAttribute('crossorigin');i.classList.add('logo-ready','logo-fallback')});
+  try{const c=sessionStorage.getItem(KEY);if(c){apply(c);return}}catch(e){}
+  const src=imgs[0].src;const im=new Image();im.crossOrigin='anonymous';
+  im.onload=()=>{try{
+    const W=im.naturalWidth,H=im.naturalHeight,cv=document.createElement('canvas');cv.width=W;cv.height=H;
+    const x=cv.getContext('2d');x.drawImage(im,0,0);const d=x.getImageData(0,0,W,H),p=d.data;
+    const mint=[0,229,161],blue=[55,167,231],col=[];let last=mint;
+    for(let cx=0;cx<W;cx++){let bs=0,best=null;for(let y=0;y<H;y++){const k=(y*W+cx)*4,s=Math.max(p[k],p[k+1],p[k+2])-Math.min(p[k],p[k+1],p[k+2]);if(s>bs){bs=s;best=[p[k],p[k+1],p[k+2]]}}if(bs>60)last=best[2]>best[1]?blue:mint;col.push(last)}
+    let x0=W,x1=0,y0=H,y1=0;
+    for(let y=0;y<H;y++)for(let cx=0;cx<W;cx++){const k=(y*W+cx)*4,t=col[cx],a=Math.max(0,Math.min(1,(255-p[k])/(255-t[0])));p[k]=t[0];p[k+1]=t[1];p[k+2]=t[2];p[k+3]=Math.round(a*255);if(a>.05){x0=Math.min(x0,cx);x1=Math.max(x1,cx);y0=Math.min(y0,y);y1=Math.max(y1,y)}}
+    x.putImageData(d,0,0);const pad=2,w=x1-x0+1+pad*2,h=y1-y0+1+pad*2,c2=document.createElement('canvas');c2.width=w;c2.height=h;
+    c2.getContext('2d').drawImage(cv,x0-pad,y0-pad,w,h,0,0,w,h);const url=c2.toDataURL('image/png');
+    try{sessionStorage.setItem(KEY,url)}catch(e){}apply(url);
+  }catch(e){fallback()}};
+  im.onerror=fallback;im.src=src;
+  setTimeout(()=>imgs.forEach(i=>{if(!i.classList.contains('logo-ready'))fallback()}),2500);
+})();
+
 // Mobile menu
 const header=document.querySelector('.site-header');
 document.querySelector('.menu-btn')?.addEventListener('click',()=>{

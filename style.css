@@ -43,7 +43,8 @@ h1,h2,h3,h4{font-family:var(--head);line-height:1.12;letter-spacing:-.02em;font-
 /* Header */
 .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;height:78px}
-.brand img{height:30px;width:auto}
+.brand{display:flex;align-items:center}
+.brand img{height:25px;width:auto}
 .nav{display:flex;align-items:center;gap:30px}
 .nav a{font-family:var(--head);font-weight:600;font-size:15px;text-decoration:none;color:var(--text);position:relative;padding:6px 0}
 .nav a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--grad);transition:right .25s}
@@ -278,8 +279,8 @@ section{position:relative}
 .site-footer{background:var(--ink);color:#9FB0C5;padding:80px 0 34px;position:relative;overflow:hidden}
 .site-footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad)}
 .foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.1)}
-.foot-logo{display:inline-block;background:var(--white);padding:14px 18px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
-.foot-logo img{height:26px;width:auto}
+.foot-logo{display:inline-block}
+.foot-logo img{height:30px;width:auto}
 .foot-top p{margin-top:20px;max-width:34ch;font-size:15px}
 .foot-top h4{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:18px}
 .foot-top ul{list-style:none;display:grid;gap:10px}
@@ -416,7 +417,7 @@ section{position:relative}
 .site-header.scrolled{box-shadow:0 10px 30px rgba(10,22,40,.08)}
 .site-header.scrolled .wrap{height:64px}
 .site-header .brand img{transition:height .35s}
-.site-header.scrolled .brand img{height:26px}
+.site-header.scrolled .brand img{height:22px}
 /* Staggered reveal variants */
 .reveal{transition-delay:var(--d,0ms)}
 .reveal.from-left{transform:translateX(-40px)}
@@ -519,3 +520,8 @@ section{position:relative}
 .tilt.in{transition-delay:0s}
 .next-up>*{min-width:0}
 @media (max-width:900px){.next-up .soon{white-space:normal}}
+
+/* Logo: white background removed in main.js; hidden until clean to avoid a white flash */
+img[data-logo]{opacity:0;transition:opacity .35s}
+img[data-logo].logo-ready{opacity:1}
+.brand img[data-logo].logo-fallback{mix-blend-mode:multiply}
